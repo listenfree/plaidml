@@ -19,6 +19,8 @@ pip install breathe
 pip install livereload
 pip install sphinx-rtd-theme
 pip install sphinxcontrib-katex
+pip install sphinxcontrib-napoleon
+pip install sphinx-tabs
 ```
 
 ### Building Documentation Locally

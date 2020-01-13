@@ -14,7 +14,9 @@ logger = logging.getLogger(__name__)
 
 
 def __init():
-    """Docstring for function plaidml2.edsl.__init"""
+    """
+    Initializes the EDSL.
+    """
     ffi_call(lib.plaidml_edsl_init)
 
 
@@ -27,6 +29,15 @@ class LogicalShape(ForeignObject):
     __ffi_repr__ = lib.plaidml_logical_shape_repr
 
     def __init__(self, dtype=None, dims=[], ptr=None):
+        """Initializes the LogicalShape.
+
+        Args:
+            self (pointer): The object pointer for a LogicalShape
+            dtype: Description of dtype
+            dims (list): The dimensions of the LogicalShape
+            ptr (pointer): Description of ptr
+
+        """
         if ptr:
             ffi_obj = ptr
         elif dtype is not None:
@@ -61,6 +72,15 @@ class LogicalShape(ForeignObject):
         ]
 
     def into_TensorShape(self):
+        """Converts a LogicalShape into a TensorShape.
+
+        Args:
+            self (pointer): The object pointer for a LogicalShape
+
+        Returns:
+            TensorShape: The resultant TensorShape.
+
+        """
         return TensorShape(
             ptr=ffi_call(lib.plaidml_logical_shape_into_tensor_shape, self.as_ptr()))
 
@@ -640,14 +660,17 @@ def call(fn, *args):
 
 
 def cast(x, dtype):
+    """A placeholder docstring."""
     return Tensor(expr=ffi_call(lib.plaidml_expr_cast, wrap_tensor(x).as_ptr(), dtype))
 
 
 def as_bool(x):
+    """A placeholder docstring."""
     return cast(x, DType.BOOLEAN)
 
 
 def as_float(x, bit_size):
+    """A placeholder docstring."""
     map = {
         16: DType.FLOAT16,
         32: DType.FLOAT32,
@@ -660,6 +683,7 @@ def as_float(x, bit_size):
 
 
 def as_int(x, bit_size):
+    """A placeholder docstring."""
     map = {
         8: DType.INT8,
         16: DType.INT16,
@@ -673,6 +697,7 @@ def as_int(x, bit_size):
 
 
 def as_uint(x, bit_size):
+    """A placeholder docstring."""
     map = {
         8: DType.UINT8,
         16: DType.UINT16,
@@ -686,30 +711,37 @@ def as_uint(x, bit_size):
 
 
 def ceil(x):
+    """A placeholder docstring."""
     return call('ceil', x)
 
 
 def cond(lhs, rhs, true_case):
+    """A placeholder docstring."""
     return IndexedTensor(_ContractionPart(lib.PLAIDML_COMBO_OP_COND, (lhs, rhs, true_case)))
 
 
 def cos(x):
+    """A placeholder docstring."""
     return call('cos', x)
 
 
 def exp(x):
+    """A placeholder docstring."""
     return call('exp', x)
 
 
 def floor(x):
+    """A placeholder docstring."""
     return call('floor', x)
 
 
 def gather(x, y):
+    """A placeholder docstring."""
     return call('gather', x, y)
 
 
 def gradients(loss, variables):
+    """A placeholder docstring."""
     wrts = [x.as_ptr() for x in variables]
     raw_grads = ffi.new('plaidml_expr*[]', len(wrts))
     ffi_call(
@@ -723,64 +755,104 @@ def gradients(loss, variables):
 
 
 def ident(x):
+    """A placeholder docstring."""
     return call('ident', x)
 
 
 def index(x, axis):
+    """A placeholder docstring."""
     return call('index', x, axis)
 
 
 def log(x):
+    """A placeholder docstring."""
     return call('log', x)
 
 
 def max(x, y):
+    """A placeholder docstring."""
     return call('max', x, y)
 
 
 def min(x, y):
+    """A placeholder docstring."""
     return call('min', x, y)
 
 
 def pow(x, y):
+    """A placeholder docstring."""
     return call('pow', x, y)
 
 
 def prng(state, shape):
+    """A placeholder docstring."""
     return call('prng', state, *shape)
 
 
 def reshape(x, dims):
+    """A placeholder docstring."""
     return call('reshape', x, *dims)
 
 
 def round(x):
+    """A placeholder docstring."""
     return call('round', x)
 
 
 def scatter(x, y, z):
+    """A placeholder docstring."""
     return call('scatter', x, y, z)
 
 
 def select(cond, true_case, false_case):
+    """A placeholder docstring."""
     return call('cond', cond, true_case, false_case)
 
 
 def shape(x):
+    """A placeholder docstring."""
     return call('shape', x)
 
 
 def sin(x):
+    """A placeholder docstring."""
     return call('sin', x)
 
 
 def sqrt(x):
+    """Computes the elementwise square root of ``x``.
+
+        Args:
+            x (Tensor): The tensor used to peform the elementwise ``sqrt``.
+
+        Returns:
+            y (Tensor): The result of the elementwise ``sqrt`` operation.
+
+    """
     return call('sqrt', x)
 
 
 def tan(x):
+    """Computes the elementwise tangent of ``x``.
+
+        Args:
+            x (Tensor): The tensor used to peform the elementwise ``tan``.
+
+        Returns:
+            y (Tensor): The result of the elementwise ``tan`` operation.
+
+    """
     return call('tan', x)
 
 
 def tanh(x):
+    """Computes the elementwise hyperbolic tangent of ``x``.
+
+        Args:
+            x (Tensor): The tensor used to peform the elementwise ``tanh``.
+
+        Returns:
+            y (Tensor): The result of the elementwise ``tanh`` operation.
+
+    """
     return call('tanh', x)

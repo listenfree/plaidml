@@ -48,8 +48,38 @@ Objects
 Primitives
 ----------
 
-.. doxygengroup:: edsl_primitives
-   :content-only:
+.. tabs::
+   .. group-tab:: C++
+
+      .. doxygengroup:: edsl_primitives
+         :content-only:
+
+   .. group-tab:: Python
+
+      .. autofunction:: plaidml2.edsl.abs
+      .. autofunction:: plaidml2.edsl.as_float
+      .. autofunction:: plaidml2.edsl.as_int
+      .. autofunction:: plaidml2.edsl.as_uint
+      .. autofunction:: plaidml2.edsl.as_bool
+      .. autofunction:: plaidml2.edsl.cos
+      .. autofunction:: plaidml2.edsl.cosh
+      .. autofunction:: plaidml2.edsl.exp
+      .. autofunction:: plaidml2.edsl.gather
+      .. autofunction:: plaidml2.edsl.ident
+      .. autofunction:: plaidml2.edsl.index
+      .. autofunction:: plaidml2.edsl.log
+      .. autofunction:: plaidml2.edsl.pow
+      .. autofunction:: plaidml2.edsl.prng
+      .. autofunction:: plaidml2.edsl.reshape
+      .. autofunction:: plaidml2.edsl.reshape
+      .. autofunction:: plaidml2.edsl.scatter
+      .. autofunction:: plaidml2.edsl.select
+      .. autofunction:: plaidml2.edsl.shape
+      .. autofunction:: plaidml2.edsl.sin
+      .. autofunction:: plaidml2.edsl.sinh
+      .. autofunction:: plaidml2.edsl.sqrt
+      .. autofunction:: plaidml2.edsl.tan
+      .. autofunction:: plaidml2.edsl.tanh
 
 --------
 Examples

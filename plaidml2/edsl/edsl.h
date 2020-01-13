@@ -61,7 +61,7 @@ void into_vector(std::vector<T>* into, Head&& head, Tail&&... tail) {
 }  // namespace details
 
 ///
-/// TODO
+/// The EDSL initialization function
 ///
 inline void init() {
   plaidml::init();
@@ -208,7 +208,7 @@ class TensorIndex {
       : ptr_(details::make_ptr(MakeDimPolyOp(op, idx, dim, lhs_first))) {}
 
   ///
-  /// TODO
+  /// Represents an subtraction operator overload on a TensorIndex
   ///
   TensorIndex operator-() const;
 
@@ -376,35 +376,35 @@ class LogicalShape {
 
  public:
   ///
-  /// TODO
+  /// LogicalShape constructor
   ///
   LogicalShape(plaidml_datatype dtype, const std::vector<int64_t>& dims)
       : ptr_(details::make_ptr(
             ffi::call<plaidml_logical_shape*>(plaidml_logical_shape_alloc, dtype, dims.size(), dims.data()))) {}
 
   ///
-  /// TODO
+  /// Returns a LogicalShape as a string
   ///
   std::string str() const {  //
     return ffi::str(ffi::call<plaidml_string*>(plaidml_logical_shape_repr, ptr_.get()));
   }
 
   ///
-  /// TODO
+  /// Returns the datatype of the LogicalShape
   ///
   plaidml_datatype dtype() const {  //
     return ffi::call<plaidml_datatype>(plaidml_logical_shape_get_dtype, ptr_.get());
   }
 
   ///
-  /// TODO
+  /// Returns the number of dimensions of the LogicalShape
   ///
   size_t ndims() const {  //
     return ffi::call<size_t>(plaidml_logical_shape_get_ndims, ptr_.get());
   }
 
   ///
-  /// TODO
+  /// Returns the dimensions of the LogicalShape as a vector of integers.
   ///
   std::vector<int64_t> int_dims() const {
     std::vector<int64_t> ret(ndims());
@@ -444,7 +444,7 @@ class Tensor {
 
  public:
   ///
-  /// TODO
+  /// Tensor constructor
   ///
   Tensor() : impl_(new Impl) {}
 
@@ -453,28 +453,28 @@ class Tensor {
   }
 
   ///
-  /// TODO
+  /// Tensor constructor
   ///
   explicit Tensor(int value) : impl_(new Impl) {  //
     impl_->ptr = details::make_ptr(ffi::call<plaidml_expr*>(plaidml_expr_int, value));
   }
 
   ///
-  /// TODO
+  /// Tensor constructor
   ///
   explicit Tensor(unsigned value) : impl_(new Impl) {  //
     impl_->ptr = details::make_ptr(ffi::call<plaidml_expr*>(plaidml_expr_int, value));
   }
 
   ///
-  /// TODO
+  /// Tensor constructor
   ///
   explicit Tensor(int64_t value) : impl_(new Impl) {
     impl_->ptr = details::make_ptr(ffi::call<plaidml_expr*>(plaidml_expr_int, value));
   }
 
   ///
-  /// TODO
+  /// Tensor constructor
   ///
   explicit Tensor(double value) : impl_(new Impl) {
     impl_->ptr = details::make_ptr(ffi::call<plaidml_expr*>(plaidml_expr_float, value));
@@ -897,9 +897,8 @@ inline Tensor as_uint(const Tensor& x, size_t bit_size) {
 }
 
 ///
-/// Performs an elementwise conversion of `x` into a Tensor of booleans with width `bit_size`.
+/// Performs an elementwise conversion of `x` into a Tensor of booleans.
 /// \param x Tensor
-/// \param bit_size size_t
 /// \return Tensor
 ///
 inline Tensor as_bool(const Tensor& x) { return cast(x, PLAIDML_DATA_BOOLEAN); }
@@ -1068,7 +1067,6 @@ inline Tensor tanh(const Tensor& x) { return Call("tanh", x); }
 
 ///
 /// Returns a Tensor with a value of 0.
-/// \param None
 /// \return Tensor
 ///
 inline Tensor zero() { return Tensor{0}; }

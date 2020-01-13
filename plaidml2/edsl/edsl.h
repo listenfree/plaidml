@@ -116,7 +116,7 @@ class Program {
 };
 
 ///
-/// \class TensorDim
+/// \class TensorDim `Specifies the dimensions of an input tensor`
 /// \ingroup edsl_objects
 ///
 class TensorDim {
@@ -454,6 +454,8 @@ class Tensor {
 
   ///
   /// Tensor constructor
+  /// \param value int
+  /// \return Tensor
   ///
   explicit Tensor(int value) : impl_(new Impl) {  //
     impl_->ptr = details::make_ptr(ffi::call<plaidml_expr*>(plaidml_expr_int, value));
@@ -461,6 +463,8 @@ class Tensor {
 
   ///
   /// Tensor constructor
+  /// \param value unsigned int
+  /// \return Tensor
   ///
   explicit Tensor(unsigned value) : impl_(new Impl) {  //
     impl_->ptr = details::make_ptr(ffi::call<plaidml_expr*>(plaidml_expr_int, value));
@@ -468,6 +472,8 @@ class Tensor {
 
   ///
   /// Tensor constructor
+  /// \param value int64_t
+  /// \return Tensor
   ///
   explicit Tensor(int64_t value) : impl_(new Impl) {
     impl_->ptr = details::make_ptr(ffi::call<plaidml_expr*>(plaidml_expr_int, value));
@@ -475,20 +481,22 @@ class Tensor {
 
   ///
   /// Tensor constructor
+  /// \param value double
+  /// \return Tensor
   ///
   explicit Tensor(double value) : impl_(new Impl) {
     impl_->ptr = details::make_ptr(ffi::call<plaidml_expr*>(plaidml_expr_float, value));
   }
 
   ///
-  /// TODO
+  /// Tensor constructor
   ///
   explicit Tensor(const TensorDim& dim) : impl_(new Impl) {
     impl_->ptr = details::make_ptr(ffi::call<plaidml_expr*>(plaidml_expr_dim, dim.as_ptr()));
   }
 
   ///
-  /// TODO
+  /// Tensor constructor
   ///
   explicit Tensor(const std::vector<int64_t>& dims) : impl_(new Impl) {
     for (auto dim : dims) {
@@ -498,7 +506,7 @@ class Tensor {
   }
 
   ///
-  /// TODO
+  /// Tensor constructor
   ///
   explicit Tensor(const std::vector<TensorDim>& dims) : impl_(new Impl) {
     impl_->dims = dims;
@@ -506,7 +514,7 @@ class Tensor {
   }
 
   ///
-  /// Tensor
+  /// Tensor constructor
   ///
   explicit Tensor(const std::initializer_list<TensorDim>& dims) : impl_(new Impl) {
     impl_->dims = dims;
@@ -514,7 +522,7 @@ class Tensor {
   }
 
   ///
-  /// Tensor
+  /// Tensor constructor
   ///
   Tensor(const std::string& name, const std::vector<TensorDim>& dims) : impl_(new Impl) {
     impl_->name = name;
@@ -523,7 +531,7 @@ class Tensor {
   }
 
   ///
-  /// TODO
+  /// Tensor constructor
   ///
   Tensor(const std::string& name, const std::initializer_list<TensorDim>& dims) : impl_(new Impl) {
     impl_->name = name;
@@ -532,12 +540,12 @@ class Tensor {
   }
 
   ///
-  /// TODO
+  /// Tensor constructor
   ///
   Tensor(const Tensor& rhs) { *this = rhs; }
 
   ///
-  /// TODO
+  /// Represents an operator overload for `=` for a `Tensor`
   ///
   Tensor& operator=(const Tensor& rhs) {
     if (this != &rhs) {
@@ -675,21 +683,22 @@ class Tensor {
 };
 
 ///
+/// \struct TensorRef `A reference to a Tensor`
 /// \ingroup edsl_objects
 ///
 struct TensorRef {
   ///
-  /// TODO
+  /// The `Tensor` that the `TensorRef` is referencing
   ///
   Tensor tensor;
 
   ///
-  /// TODO
+  /// TensorRef constructor
   ///
   TensorRef(const Tensor& tensor) : tensor(tensor) {}  // NOLINT[runtime/explicit]
 
   ///
-  /// TODO
+  /// Returns the `Tensor` referenced by this `TensorRef`.
   ///
   operator Tensor() const { return tensor; }
 
